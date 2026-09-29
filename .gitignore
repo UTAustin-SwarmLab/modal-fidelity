@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Weights, caches and generated outputs are never tracked (download them, see checkpoints/README.md)
+*.pt
+*.pth
+*.ckpt
+checkpoints/*
+!checkpoints/README.md
+!checkpoints/SHA256SUMS
+!checkpoints/download.py
+outputs/
+log/*
+!log/.gitkeep
+
+# Per-machine data location (see modalfidelity/paths.py)
+machine.env
+
+# Working notes for preparing the release; not part of the public repo
+agent/
