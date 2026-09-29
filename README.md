@@ -4,9 +4,8 @@
   <img src="assets/ModalFidelity_HeadlineFig.png" alt="ModalFidelity overview" width="720" height="418">
 </p>
 
-<p align="center">
 https://github.com/user-attachments/assets/d4e8d3fd-6714-471a-87a2-9c52ffe877b6
-</p>
+
 
 Deepfakes no longer need to fake a whole video. Generators that read the transcript now alter only the few seconds on which a video's meaning turns, so a forgery hides in a small, unknown fraction of the video. Yet detectors still read every one-second window of both the audio and image streams, spending nearly all of their compute where nothing was altered.
 
