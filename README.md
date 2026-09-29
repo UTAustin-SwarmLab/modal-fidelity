@@ -4,7 +4,9 @@
   <img src="assets/ModalFidelity_HeadlineFig.png" alt="ModalFidelity overview" width="720" height="418">
 </p>
 
+<p align="center">
 https://github.com/user-attachments/assets/d4e8d3fd-6714-471a-87a2-9c52ffe877b6
+</p>
 
 Deepfakes no longer need to fake a whole video. Generators that read the transcript now alter only the few seconds on which a video's meaning turns, so a forgery hides in a small, unknown fraction of the video. Yet detectors still read every one-second window of both the audio and image streams, spending nearly all of their compute where nothing was altered.
 
@@ -337,12 +339,11 @@ The late-MoE checkpoints of Table 1 are not in this release yet.
 ## Citation
 
 ```bibtex
-@inproceedings{baser2027modalfidelity,
-  title     = {{ModalFidelity}: Routing Modalities for Deepfake Detection on a Budget},
-  author    = {Baser, Oguzhan and Kale, Kaan and Vishwanath, Sriram and Chinchali, Sandeep},
-  booktitle = {IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
-  year      = {2027},
-  note      = {Under review}
+@unpublished{baser2027modalfidelity,
+  title  = {{ModalFidelity}: Routing Modalities for Deepfake Detection on a Budget},
+  author = {Baser, Oguzhan and Kale, Kaan and Vishwanath, Sriram and Chinchali, Sandeep},
+  year   = {2027},
+  note   = {Under review at IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2027)}
 }
 ```
 
@@ -352,8 +353,3 @@ The late-MoE checkpoints of Table 1 are not in this release yet.
   - [W2V2-AASIST](https://github.com/TakHemlata/SSL_Anti-spoofing) (Tak et al., Odyssey 2022) for audio;
   - [GenD](https://arxiv.org/abs/2508.06248) (Yermakov et al., WACV 2026) for images;
   - [AVH-Align](https://arxiv.org/abs/2412.00175) (Smeu et al., CVPR 2025) for the multimodal baseline.
-
-  Their per-window scores ship in `data/`; the detectors themselves are not redistributed here.
-- **Funding:** this work was supported in part by the National Science Foundation under Grant 2148186.
-
-Released under the [MIT License](LICENSE).
