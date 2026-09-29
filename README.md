@@ -12,9 +12,15 @@ Deepfakes no longer need to fake a whole video. Generators that read the transcr
 **ModalFidelity** is a lightweight router that previews each window and decides, before any forensic detector runs, which stream is worth reading, under a hard compute budget it can never exceed. On AV-Deepfake1M, reading at most a fifth of the windows, it is more accurate than gating after the detectors at **15.9× less compute**, and it retains **over 96%** of the accuracy of an oracle that knows where every forgery lies.
 
 This repository holds the code, saved results and checkpoints behind the paper (ICASSP 2027):
-- **Reproduce every figure and table** from the saved results with one notebook.
+- **Reproduce every figure and table** from the saved results with one notebook, [`reproduce_paper.ipynb`](reproduce_paper.ipynb).
 - **Evaluate** the released routers.
 - **Re-create** the router's inputs from AV-Deepfake1M and **retrain** it.
+
+> [!TIP]
+> **Start here: [`reproduce_paper.ipynb`](reproduce_paper.ipynb)**, at the root of this repository.
+> It regenerates the paper's Fig. 2, Fig. 3 and Table 1, pixel for pixel, and re-checks every number the paper states about them.
+> It needs no GPU, no downloads and no training, and runs in under a minute after the [Setup](#setup) below.
+> The notebook is committed **already executed**, so opening it on GitHub shows every figure, table and check without running anything.
 
 ---
 
@@ -59,16 +65,31 @@ Files go to `checkpoints/` unless `MODALFIDELITY_DATA` points elsewhere.
 
 ## Reproduce the paper
 
+**Everything the paper reports about Figs. 2–3 and Table 1 regenerates from one notebook at the repository root: [`reproduce_paper.ipynb`](reproduce_paper.ipynb).**
+
 ```bash
-jupyter nbconvert --to notebook --execute notebooks/reproduce_paper.ipynb --output-dir outputs/
-# or, without Jupyter:
-mf-reproduce-figures
+conda activate modal-fidelity
+jupyter lab reproduce_paper.ipynb          # interactive: run all cells
+# or headless, keeping an executed copy:
+jupyter nbconvert --to notebook --execute reproduce_paper.ipynb --output-dir outputs/
 ```
 
-Both regenerate Fig. 2, Fig. 3 and Table 1 from `data/` and check every number the paper states about them (28 of 28).
+The notebook runs in four steps, each reading only the saved results in `data/`:
 
-- **Pixel-identical:** with the pinned environment, the regenerated PNGs match the paper's figures pixel for pixel. `tests/test_paper_results.py` asserts this.
+| Step | Cell | What it produces |
+|---|---|---|
+| 1 | Fig. 2 | per-window confidence by forgery type → `outputs/figures/fig2.png` / `.pdf` |
+| 2 | Fig. 3 | accuracy against the budget fraction ρ → `outputs/figures/fig3.png` / `.pdf` |
+| 3 | Table 1 | the gate-placement table, printed |
+| 4 | Paper numbers | every number the paper states about these results, recomputed and checked (28 of 28) |
+
+- **Pixel-identical:** with the pinned environment, the PNGs match the paper's figures pixel for pixel. `tests/test_paper_results.py` asserts this.
 - **Deterministic:** nothing is sampled, so every run gives the same output.
+- **Without Jupyter:** `mf-reproduce-figures` does the same from the command line.
+- **Committed executed:** the repository keeps the notebook with its outputs, so GitHub displays the figures directly. After changing anything it depends on, refresh it in place. `tests/test_notebook.py` fails if the committed outputs differ from a fresh run, and the command below leaves no timestamps or machine paths in the file:
+  ```bash
+  jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.record_timing=False reproduce_paper.ipynb
+  ```
 
 Fig. 4 of the paper is not part of this release.
 
@@ -265,14 +286,13 @@ Evaluating the late baselines needs the frozen detector embeddings of the benchm
 
 ```
 modal-fidelity/
+├── reproduce_paper.ipynb           ★ start here: Figs. 2–3, Table 1 and every paper number, in one run
 ├── README.md, LICENSE, environment.yml, pyproject.toml
 ├── assets/                         figures shown in this README (Figs. 1–3 of the paper, overview)
 ├── data/                           saved results behind every figure and table (1.9 MB, see below)
 ├── checkpoints/
 │   ├── download.py                 fetch the release from Google Drive and verify SHA-256 checksums
 │   └── SHA256SUMS                  checksum of every released file
-├── notebooks/
-│   └── reproduce_paper.ipynb       Figs. 2–3, Table 1 and every paper number, in one run
 ├── modalfidelity/
 │   ├── constants.py                actions, unit costs, detector thresholds τ^m, budgets ρ
 │   ├── paths.py                    where data, checkpoints and the dataset live (env vars / machine.env)
