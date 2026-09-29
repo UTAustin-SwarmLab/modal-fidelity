@@ -45,11 +45,11 @@ pytest -q                   # optional: the full test suite, about a minute on a
 - **Evaluating or training the router** needs the checkpoints and the preview-feature cache (step 2).
 - **GPU wheels:** PyTorch is installed as CUDA 12.6 wheels. On an older driver, change the `--extra-index-url` in `environment.yml` to the [matching PyTorch index](https://pytorch.org/get-started/locally/).
 
-**2. Checkpoints and features (optional, 5.7 GB).**
+**2. Checkpoints and features (optional, 6.1 GB).**
 
 ```bash
 python checkpoints/download.py                   # everything, verified against checkpoints/SHA256SUMS
-python checkpoints/download.py --skip-features   # checkpoints only (≈ 290 MB)
+python checkpoints/download.py --skip-features   # checkpoints only (≈ 650 MB)
 python checkpoints/download.py --verify-only     # re-check files already in place
 ```
 
@@ -259,7 +259,7 @@ Every command also answers `--help`.
 | `--gend-repo`, `--gend-model` | a GenD clone and its Hugging Face id (for `image`) |
 | `--device`, `--out`, `--overwrite` | torch device, output directory (required), replace existing |
 
-The detector embeddings behind the late baselines, and the audio and multimodal detector costs, come from the third-party detectors, which are not redistributed. Their measured values ship in `data/table1_gate_placement.json`.
+Evaluating the late baselines needs the frozen detector embeddings of the benchmark videos (3.2 GB), which come from the third-party detectors and are not redistributed; neither are the audio and multimodal detector costs. Their measured values ship in `data/table1_gate_placement.json`.
 
 ## Repository structure
 
@@ -332,8 +332,9 @@ Each file's source, its checksum and how it was derived are listed in `data/MANI
 | `router/seed{0..3}/router_stage1.pt` | the same router after stage 1 only |
 | `preview/unbudgeted_gate.pt` | the unbudgeted per-window gate of Fig. 2; its `joint_net.*` weights are the frozen preview encoder |
 | `features/shard{0..7}of8_{feats.npy,meta.npz}` | preview features of all 40,000 cached videos (float16, 5.4 GB), including the benchmark videos |
+| `late_moe/{dense,feature,output}_s{0,1}/best.pt` | the late-MoE baselines of Table 1, one per gate position and seed; `mf-evaluate-gate-placement` reproduces Table 1's late rows from them exactly |
+| `late_moe/{dense,feature,output}_s{0,1}/{metrics.jsonl,summary.json}` | their training curves and held-out summaries |
 
-The late-MoE checkpoints of Table 1 are not in this release yet.
 
 ## Citation
 
