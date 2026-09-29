@@ -45,7 +45,7 @@ pytest -q                   # optional: the full test suite, about a minute on a
 - **Evaluating or training the router** needs the checkpoints and the preview-feature cache (step 2).
 - **GPU wheels:** PyTorch is installed as CUDA 12.6 wheels. On an older driver, change the `--extra-index-url` in `environment.yml` to the [matching PyTorch index](https://pytorch.org/get-started/locally/).
 
-**2. Checkpoints and features (optional, 6.1 GB).**
+**2. Checkpoints and features (optional, 6.0 GB).**
 
 ```bash
 python checkpoints/download.py                   # everything, verified against checkpoints/SHA256SUMS
@@ -323,6 +323,8 @@ Each file's source, its checksum and how it was derived are listed in `data/MANI
 **Random baseline.** In `budget_curves/` (Fig. 3) it is seeded with 0 for every router seed, which is what `mf-evaluate-router` does by default. In `budget_curves_stage1/` it was seeded with the router's own seed, so reproduce that file with `--seed 0`…`3`. Only the router's values in that file are used in the paper.
 
 ### Checkpoints: Google Drive
+
+The release is in [this Google Drive folder](https://drive.google.com/drive/folders/1DNAJJFzNpxPYvmNJlU5QsiEJdkGnQalP) (public, 6.0 GB).
 
 `python checkpoints/download.py` fetches and verifies the files below. They are listed with their checksums in `checkpoints/SHA256SUMS`.
 
