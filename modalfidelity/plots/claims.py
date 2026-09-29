@@ -25,6 +25,14 @@ def compute(data_dir: str) -> dict:
     out["max gap to oracle (pp)"] = float(((c["oracle"] - c["router"]) * 100).max())
     out["min share of oracle accuracy"] = float((c["router"] / c["oracle"]).min())
     out["router accuracy at rho=0.30"] = float(c["router"][i30])
+    i10 = rhos.index(0.1)
+    small = [k for k, r in enumerate(rhos) if r <= 0.10]
+    out["max gap to oracle for rho<=0.10 (pp)"] = float(((c["oracle"] - c["router"])[small] * 100).max())
+    out["router accuracy at rho=0.10"] = float(c["router"][i10])
+    out["best fixed detector at rho=0.10"] = float(max(c[m][i10] for m in ("audio_only", "image_only", "multimodal")))
+    out["best blind allocator at rho=0.10"] = float(max(c[m][i10] for m in ("random", "uniform")))
+    out["blind allocators, lowest over budgets"] = float(min(c["random"].min(), c["uniform"].min()))
+    out["blind allocators, highest over budgets"] = float(max(c["random"].max(), c["uniform"].max()))
     out["gain over audio-only at rho=0.20 (pp)"] = float((c["router"] - c["audio_only"])[i20] * 100)
     out["gain over image-only at rho=0.20 (pp)"] = float((c["router"] - c["image_only"])[i20] * 100)
     gain = (c["router"] - s1["router"]) * 100
@@ -62,7 +70,13 @@ def compute(data_dir: str) -> dict:
 PAPER = {
     "max gap to oracle (pp)": ("within 2.6 pp of the oracle at every budget", 1, "round"),
     "min share of oracle accuracy": ("retains over 96% of the oracle's accuracy", 0.96, "above"),
-    "router accuracy at rho=0.30": ("0.815 at rho=0.30", 3, "round"),
+    "router accuracy at rho=0.30": ("reaches 0.815 (rho = 0.30)", 3, "round"),
+    "max gap to oracle for rho<=0.10 (pp)": ("within 0.9 pp of the oracle for small budgets", 1, "round"),
+    "router accuracy at rho=0.10": ("reaches 0.655 (rho = 0.10)", 3, "round"),
+    "best fixed detector at rho=0.10": ("at most 0.617 for any fixed detector", 3, "round"),
+    "best blind allocator at rho=0.10": ("0.543 for the blind allocators", 3, "round"),
+    "blind allocators, lowest over budgets": ("near chance, 0.51 to 0.60", 2, "round"),
+    "blind allocators, highest over budgets": ("upper end of near chance: 0.60", 2, "round"),
     "router at rho=0.30 below the unbudgeted gate (pp)": ("within 0.4 pp of the 0.819 of the unbudgeted gate", 1, "round"),
     "gain over audio-only at rho=0.20 (pp)": ("6.6 pp", 1, "round"),
     "gain over image-only at rho=0.20 (pp)": ("8.1 pp", 1, "round"),

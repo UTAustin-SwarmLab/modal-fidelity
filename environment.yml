@@ -14,7 +14,8 @@ channels:
 dependencies:
   - python=3.12
   - pip
-  - ffmpeg                      # audio and video decoding for mf-cache-features
+  - ffmpeg=4.4.2                # audio demuxing for mf-cache-previews; 4.4 resamples exactly as
+                                # the paper's preview cache was built (newer versions differ slightly)
   - pip:
       - --extra-index-url https://download.pytorch.org/whl/cu126
       - torch==2.7.1

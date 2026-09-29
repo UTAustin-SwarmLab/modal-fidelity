@@ -1,6 +1,6 @@
 """Evaluate a router checkpoint and the baselines with the real detectors (Fig. 3, Table 1).
 
-    mf-evaluate-router --checkpoint checkpoints/router/seed0/router_final.pt --out outputs/eval/seed0
+    mf-evaluate-router --checkpoint checkpoints/router/seed0/router.pt --out outputs/eval/seed0
 
 Writes ``<out>/detector_accuracy.json``: accuracy, balanced accuracy, recall and false-positive
 rate per method and budget, plus detector calls and GFLOPs per window. Refuses to overwrite.
@@ -24,9 +24,9 @@ def main(argv=None) -> int:
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--checkpoint", required=True,
                    help="router checkpoint (.pt) holding the LSTM and head weights")
-    p.add_argument("--features", default=checkpoint("preview_features"),
+    p.add_argument("--features", default=checkpoint("features"),
                    help="preview-feature cache directory (shard*_feats.npy + shard*_meta.npz); "
-                        "default: $MODALFIDELITY_DATA/preview_features")
+                        "default: $MODALFIDELITY_DATA/features")
     p.add_argument("--benchmark", default=os.path.join(saved_data_dir(), "benchmark_windows.npz"),
                    help="per-window detector scores and labels of the benchmark videos")
     p.add_argument("--thresholds", default=os.path.join(saved_data_dir(), "benchmark_thresholds.json"),
@@ -35,9 +35,9 @@ def main(argv=None) -> int:
                    help="budgets as a fraction rho of each video's windows")
     p.add_argument("--false-alarm", type=float, default=None,
                    help="reward penalty p for the oracle; default: the value stored in the checkpoint")
-    p.add_argument("--seed", type=int, default=None,
-                   help="seed of the random baseline; default: the router's training seed from the "
-                        "checkpoint, which is what the paper's numbers use")
+    p.add_argument("--seed", type=int, default=0,
+                   help="seed of the random baseline (default: 0, as in the paper, whose Fig. 3 "
+                        "uses seed 0 for the random baseline with every router seed)")
     p.add_argument("--cost-model", default=None,
                    help="optional JSON overriding GFLOPs per window: preview, audio, image, multimodal")
     p.add_argument("--max-videos", type=int, default=None,
@@ -53,7 +53,7 @@ def main(argv=None) -> int:
         raise SystemExit(f"{dest} exists; choose a new --out or pass --overwrite")
     blob = torch.load(a.checkpoint, map_location="cpu", weights_only=True)
     false_alarm = a.false_alarm if a.false_alarm is not None else float(blob.get("false_alarm", 0.25))
-    seed = a.seed if a.seed is not None else int(blob.get("seed", 0))
+    seed = a.seed
 
     res = evaluate(a.checkpoint, a.features, load_benchmark(a.benchmark, a.thresholds),
                    false_alarm=false_alarm, seed=seed, rhos=a.rhos, device=a.device,

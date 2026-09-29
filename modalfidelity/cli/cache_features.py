@@ -14,7 +14,7 @@ Output, per shard (read by ``mf-train-router`` and ``mf-evaluate-router``):
 Example::
 
     mf-cache-features --preview-cache <avdf-preview-cache> --preview-weights \\
-        checkpoints/preview_encoder.pt --out <cache>/preview_features --shard 0 --num-shards 8
+        checkpoints/preview/unbudgeted_gate.pt --out checkpoints/features --shard 0 --num-shards 8
 """
 from __future__ import annotations
 

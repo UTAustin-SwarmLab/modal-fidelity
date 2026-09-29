@@ -14,7 +14,7 @@ Written to ``--out``:
 
 Example (the paper's seed-0 router)::
 
-    mf-train-router --features <cache>/preview_features --out outputs/router_seed0 --seed 0
+    mf-train-router --features checkpoints/features --out outputs/router_seed0 --seed 0
 """
 from __future__ import annotations
 

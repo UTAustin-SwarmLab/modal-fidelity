@@ -5,13 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "modalfidelity"
 version = "1.0.0"
-description = "ModalFidelity: routing modalities to detect deepfakes on a budget (ICASSP 2027)"
+description = "ModalFidelity: Routing Modalities for Deepfake Detection on a Budget (ICASSP 2027)"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 dependencies = []   # installed by environment.yml; see README "Setup"
 
 [project.scripts]
+mf-cache-previews = "modalfidelity.cli.cache_previews:main"
 mf-cache-features = "modalfidelity.cli.cache_features:main"
 mf-train-router = "modalfidelity.cli.train_router:main"
 mf-evaluate-router = "modalfidelity.cli.evaluate_router:main"
