@@ -1,0 +1,36 @@
+# One environment for everything in this repo: reproducing the figures, evaluating the released
+# checkpoints, caching preview features and training the router.
+#
+#   conda env create -f environment.yml
+#   conda activate modal-fidelity
+#   pip install -e .
+#
+# matplotlib, seaborn, numpy and pandas are pinned to the versions that rendered the paper's
+# figures, so the notebook reproduces them pixel for pixel. torch uses CUDA 12.6 wheels; on a
+# CPU-only machine everything except training still runs (see README, "Setup").
+name: modal-fidelity
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - ffmpeg                      # audio and video decoding for mf-cache-features
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu126
+      - torch==2.7.1
+      - torchvision==0.22.1
+      - torchaudio==2.7.1
+      - numpy==2.3.1
+      - scipy==1.16.1
+      - pandas==2.3.2
+      - matplotlib==3.10.3
+      - seaborn==0.13.2
+      - pillow==11.3.0
+      - tqdm==4.67.1
+      - av==15.0.0              # video decoding (mf-cache-features)
+      - librosa==0.11.0         # spectrograms for the audio preview (mf-cache-features)
+      - soundfile==0.13.1
+      - jupyter==1.1.1
+      - nbconvert==7.16.6
+      - pytest==8.4.1
+      - gdown==5.2.0              # checkpoints/download.py (Google Drive)

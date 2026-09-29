@@ -1,0 +1,13 @@
+{
+ "windows": 72287,
+ "thresholds": {
+  "aasist": 4.51401,
+  "gend": 0.73828125,
+  "avhalign": -6.723406
+ },
+ "detector_for": {
+  "audio": "aasist",
+  "image": "gend",
+  "multimodal": "avhalign"
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "description": "Saved results that regenerate the paper's figures and tables. Each file lists its source in the original experiment tree, the source's SHA-256, and how it was derived (renames and dropped fields only; every kept value is exact).",
+ "files": {
+  "benchmark_windows.npz": {
+   "source": "agent/outputs/allocator_benchmark_clean/per_window.npz",
+   "source_sha256": "4126e5e75d26a7fd7275ccd136225aeaefe40073b1369259b14f00203e2ad83c",
+   "backs": "Fig. 2; detector scores and labels for router evaluation (1,999 videos, 72,287 windows)",
+   "derivation": "kept labels, detector scores and the (action, margin) of the 7 Fig. 2 methods; renamed gate->unbudgeted_gate, uniform_cycle->uniform; values exact",
+   "sha256": "0e748ae13e9dab9869bebbe687648557203191d09fb4d55b52ca6bff8f33d377"
+  },
+  "benchmark_thresholds.json": {
+   "source": "agent/outputs/allocator_benchmark_clean/summary.json",
+   "source_sha256": "575b7acc79c0b1e93e2f465c29102eef7b615dac3f6dee1ab2057f03d0322e9a",
+   "backs": "Fig. 2 (per-detector operating points tau^m)",
+   "derivation": "thresholds copied exactly",
+   "sha256": "deb5f943d1892efc3c56725be5cdca7798261487261f5a6013d8c4c7f2d53721"
+  },
+  "budget_curves/seed0.json": {
+   "source": "agent/outputs/temporal_join_mm/p0.25_s0/detector_accuracy.json",
+   "source_sha256": "a66286800950f45b7d394835eaa6afd41d04a29c7837ca4672b1a8460364a3aa",
+   "backs": "Fig. 3; text: 2.6 pp to the oracle, >96 % of the oracle, 6.6-8.1 pp over single detectors",
+   "derivation": "detector-scored accuracy per budget, final router (stage 1 + 2); kept the 7 plotted methods and 4 metrics; renamed causal->router, uniform_cycle->uniform, multimodal_only->multimodal; values exact",
+   "sha256": "9963bc34efe2d668de853b24c4843e9906b7290e629dc36b962dc19adef6a492"
+  },
+  "budget_curves/seed1.json": {
+   "source": "agent/outputs/temporal_join_mm/p0.25_s1/detector_accuracy.json",
+   "source_sha256": "9614be1019ac65e5641824a884877ddb85db268cef6f87d498435e3a499a511c",
+   "backs": "Fig. 3; text: 2.6 pp to the oracle, >96 % of the oracle, 6.6-8.1 pp over single detectors",
+   "derivation": "detector-scored accuracy per budget, final router (stage 1 + 2); kept the 7 plotted methods and 4 metrics; renamed causal->router, uniform_cycle->uniform, multimodal_only->multimodal; values exact",
+   "sha256": "7bafed899645d745d2fe612bb6ea9f18036476b092ba80b1c9ba0569ab4e2299"
+  },
+  "budget_curves/seed2.json": {
+   "source": "agent/outputs/temporal_join_mm/seed2/detector_accuracy.json",
+   "source_sha256": "6249b8876cf420e1069012b143ba6c38632b50e4c2f361d0e82027437f595f1c",
+   "backs": "Fig. 3; text: 2.6 pp to the oracle, >96 % of the oracle, 6.6-8.1 pp over single detectors",
+   "derivation": "detector-scored accuracy per budget, final router (stage 1 + 2); kept the 7 plotted methods and 4 metrics; renamed causal->router, uniform_cycle->uniform, multimodal_only->multimodal; values exact",
+   "sha256": "4a32fb7cad1230d08c9fa5d9a42d8007824cf40901238e6f2749116b59d91ae8"
+  },
+  "budget_curves/seed3.json": {
+   "source": "agent/outputs/temporal_join_mm/seed3/detector_accuracy.json",
+   "source_sha256": "dbac329eb21b9bbaa38b05f8e4c571819cc1353f67d1036ac4756341e34d3b2f",
+   "backs": "Fig. 3; text: 2.6 pp to the oracle, >96 % of the oracle, 6.6-8.1 pp over single detectors",
+   "derivation": "detector-scored accuracy per budget, final router (stage 1 + 2); kept the 7 plotted methods and 4 metrics; renamed causal->router, uniform_cycle->uniform, multimodal_only->multimodal; values exact",
+   "sha256": "793edcd5e40a75c3696d242c9becb9316618a6ebe90de33f3195eb2ec5fce93c"
+  },
+  "budget_curves_stage1/seed0.json": {
+   "source": "paper/playground/stage1_join/p0.25_s0/detector_accuracy.json",
+   "source_sha256": "e8fcc48a48e1da1bc084be2975201af8f7192868649e64c943cb7422ec2e1f44",
+   "backs": "text: stage 2 adds 1.9 to 6.5 pp across budgets",
+   "derivation": "same evaluation with the stage-1 checkpoint of each seed; kept the 7 plotted methods and 4 metrics; renamed causal->router, uniform_cycle->uniform, multimodal_only->multimodal; values exact",
+   "sha256": "db1d913fd5cc6ea0f26890c14a9897a793e294f1021e2e82edf078b5c7870aa5"
+  },
+  "budget_curves_stage1/seed1.json": {
+   "source": "paper/playground/stage1_join/p0.25_s1/detector_accuracy.json",
+   "source_sha256": "ebf44bb4910af8c398bf92681f648072bce7d8fb1490f72b932727ffff9ab30c",
+   "backs": "text: stage 2 adds 1.9 to 6.5 pp across budgets",
+   "derivation": "same evaluation with the stage-1 checkpoint of each seed; kept the 7 plotted methods and 4 metrics; renamed causal->router, uniform_cycle->uniform, multimodal_only->multimodal; values exact",
+   "sha256": "54e2045f8beebea5aa5e351452141507666d45f528f131e1b2944f4ead6bcf10"
+  },
+  "budget_curves_stage1/seed2.json": {
+   "source": "paper/playground/stage1_join/seed2/detector_accuracy.json",
+   "source_sha256": "c5e32999c7723c35e3a31279db958737161d6d1ab7aaa7cf8130835a19e147dc",
+   "backs": "text: stage 2 adds 1.9 to 6.5 pp across budgets",
+   "derivation": "same evaluation with the stage-1 checkpoint of each seed; kept the 7 plotted methods and 4 metrics; renamed causal->router, uniform_cycle->uniform, multimodal_only->multimodal; values exact",
+   "sha256": "06063f8092f3f27569311110c501a82a3e9eaa29e625a5c6dd2eb5b372e3b30b"
+  },
+  "budget_curves_stage1/seed3.json": {
+   "source": "paper/playground/stage1_join/seed3/detector_accuracy.json",
+   "source_sha256": "852f6c5904266a9c35f53adb04de8ca9ce1ca83151a4720f412852c5052bd680",
+   "backs": "text: stage 2 adds 1.9 to 6.5 pp across budgets",
+   "derivation": "same evaluation with the stage-1 checkpoint of each seed; kept the 7 plotted methods and 4 metrics; renamed causal->router, uniform_cycle->uniform, multimodal_only->multimodal; values exact",
+   "sha256": "9f6c1c51cab6aa2e53001f296a7883c319264cf4fa9b5c0f1d91abad0ba89521"
+  },
+  "table1_gate_placement.json": {
+   "source": [
+    "agent/outputs/moe_tables/moe_tables.json",
+    "agent/outputs/gflops_cost_v2/gflops_cost.json"
+   ],
+   "source_sha256": [
+    "0cb33df2c1be72528e782853c34a9507a4b86ea8209da2e5691c8b084bd9b2f0",
+    "e55406ca67660d54d5b58b9822ae5873f651feeb4ed91bf26f5961e0ecaf8e06"
+   ],
+   "backs": "Table 1; text: 15.9x fewer GFLOPs, 15.4x fewer calls, 10.6x and 11 pp at rho=0.50, late positions within 0.6 pp",
+   "derivation": "late MoE: by_position.<pos>.full_cost.any_forged.balanced (mean over seeds); router: methods.causal (seed 0) balanced, calls and GFLOPs per window; late cost = audio + image detector GFLOPs; values exact",
+   "sha256": "75c820719f7b6ec58f3a84b69dc6b66cbf307169a5658d5290dc3f857c17195d"
+  },
+  "heldout_sources.json": {
+   "source": "agent/outputs/temporal_alloc/detector_sources.json",
+   "source_sha256": "a7c623987295689ccada6b4a65fc9dc8ab2ed1dfdd761784c6064b57b58c1d56",
+   "backs": "the identity-disjoint split: the 500 benchmark source videos whose speakers are held out of router training",
+   "derivation": "byte-identical copy",
+   "sha256": "a7c623987295689ccada6b4a65fc9dc8ab2ed1dfdd761784c6064b57b58c1d56"
+  }
+ }
+}
